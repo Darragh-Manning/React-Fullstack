@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import AllDegrees from './components/AllDegrees';
+import { AllDegrees, SingleDegree } from './components';
 
 
 function App() {

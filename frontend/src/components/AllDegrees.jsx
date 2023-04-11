@@ -1,20 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const AllDegrees = () => {
-    const [degrees, setDegrees] = useState([]);
+export default function AllDegrees() {
+  const [degrees, setDegrees] = useState([]);
 
-const getDegree = () => {
-    fetch("http://127.0.0.1:800/api/cohort/?degree=COMSCI")
-    .then(response => response.json())
-    .catch(err => console.log(err))
-}
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/degree")
+      .then(response => response.json())
+      .then((data) => setDegrees(data))
+      .catch(err => console.log(err));
+  }, []);
 
-useEffect(() => {
-    getDegree();
-}, [])
-    
+  function displayDegrees() {
+    return (
+      degrees.map((degree, index) => {
+        return (
+          <li key={index}>
+            {degree.full_name}
+          </li>
+        );
+      })
+    );
+  }
+
   return (
-    <div>AllDegrees</div>
-  )}
-
-export default AllDegrees;
+    <ul>
+      {displayDegrees()}
+    </ul>
+  );
+}
